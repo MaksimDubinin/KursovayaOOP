@@ -1,5 +1,5 @@
-import Value.*;
-import Action.*;
+import value.*;
+import action.*;
 import javax.swing.*;
 import java.awt.*;
 
@@ -32,6 +32,8 @@ public class Window extends JFrame {
         play.setBounds(405, 400, 140, 50);
         play.setIcon(new ImageIcon("data/start.png"));
         mainPanel.add(play);
+
+        setIconImage(new ImageIcon("data/logo2.png").getImage());
 
         JPanel settingsPanel = new JPanel();
         settingsPanel.setLayout(null);
@@ -66,46 +68,63 @@ public class Window extends JFrame {
         settingsPanel.add(dir1);
         settingsPanel.add(dir2);
 
-        JButton applysettings = new JButton("Принять настройки");
-        applysettings.setBounds((int) (width / 2) - 415, (int) (height / 2) - 200, 200, 50);
+        JButton applysettings = new JButton();
+        applysettings.setIcon(new ImageIcon("data/accept.png"));
+        applysettings.setBounds(333, 250, 135, 50);
         settingsPanel.add(applysettings);
-        JButton backToHomeFromSettings = new JButton("Вернуться в главное меню");
-        backToHomeFromSettings.setBounds((int) (width / 2) - 120, (int) (height / 2) - 450, 200, 50);
+        JButton backToHomeFromSettings = new JButton();
+        backToHomeFromSettings.setIcon(new ImageIcon("data/back.png"));
+        backToHomeFromSettings.setBounds(665, 0, 137, 50);
         settingsPanel.add(backToHomeFromSettings);
 
-        JButton backToHomeFromGame = new JButton("Вернуться в главное меню");
-        backToHomeFromGame.setBounds((int) (width / 2) - 120, (int) (height / 2) - 450, 200, 50);
+
+        JButton endGame = new JButton();
+        endGame.setIcon(new ImageIcon("data/end.png"));
+        endGame.addActionListener(e -> cl.show(homeContainer, "HOME"));
+        endGame.setVisible(false);
+        endGame.setBounds(340, 20, 137, 50);
+        JButton backToHomeFromGame = new JButton();
+        backToHomeFromGame.setIcon(new ImageIcon("data/back.png"));
+        backToHomeFromGame.setBounds(0, 0, 137, 50);
         JPanel game = new JPanel();
         game.setLayout(null);
         game.setBackground(new Color(182, 179, 179));
         game.add(backToHomeFromGame);
+        game.add(endGame);
+
+        JPanel names = new JPanel();
+        names.setLayout(null);
+        names.setBackground(new Color(182, 179, 179));
 
         homeContainer.add(settingsPanel, "SETTINGS");
         homeContainer.add(mainPanel, "HOME");
         homeContainer.add(game, "GAME");
+        homeContainer.add(names, "NAME");
 
         this.add(homeContainer);
         cl.show(homeContainer, "HOME");
 
         JPanel deckPanel = new JPanel();
         deckPanel.setBackground(new Color(182, 179, 179));
-        deckPanel.setBounds(70, 550, 700, 400);
+        deckPanel.setBounds(50, 500, 700, 400);
         game.add(deckPanel);
 
         JLabel gamingTable = new JLabel();
         gamingTable.setLayout(null);
-        gamingTable.setBounds((int) (width / 2) - 550, (int) (height / 2) - 300, 500, 400);
+        gamingTable.setBounds(170, 100, 500, 400);
         game.add(gamingTable);
         JPanel namePanel = new JPanel();
         namePanel.setBackground(new Color(182, 179, 179));
-        namePanel.setBounds(300, 100, 200, 50);
+        namePanel.setBounds(250, 40, 300, 50);
         game.add(namePanel);
 
-        JButton backToGameFromMain = new JButton("Вернуться в игру");
+        JButton backToGameFromMain = new JButton();
+        backToGameFromMain.setIcon(new ImageIcon("data/backToGame.png"));
         backToGameFromMain.addActionListener(event -> cl.show(homeContainer, "GAME"));
-        backToGameFromMain.setBounds((int) (width / 2) - 120, (int) (height / 2) - 450, 200, 50);
+        backToGameFromMain.setBounds(663, 0, 137, 50);
         backToGameFromMain.setVisible(false);
         mainPanel.add(backToGameFromMain);
+
 
         JLabel logo = new JLabel();
         logo.setLayout(null);
@@ -119,6 +138,6 @@ public class Window extends JFrame {
         Settingvalue settingvalue = new Settingvalue();
         applysettings.addActionListener(new Actionsettings(settingvalue, text, chooseDeck, dir1, dir2));
         Playingcards playingcards = new Playingcards();
-        play.addActionListener(new Actionstartgame(playingcards, settingvalue, cl, homeContainer, deckPanel, gamingTable, backToGameFromMain, namePanel));
+        play.addActionListener(new ActionConfirmName(homeContainer, cl, settingvalue, names, playingcards, deckPanel, gamingTable, backToGameFromMain, namePanel, backToHomeFromGame, endGame));
     }
 }
