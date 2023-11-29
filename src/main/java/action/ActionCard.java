@@ -52,8 +52,11 @@ public class ActionCard implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         int cardEnabled = 0;
-        FuncWithCard func = new FuncWithCard(suit, dignity, cardOnTable, countMove % settingvalue.playerCount,cardLeft);
-        removeCardFromPlayer(playersCard, suit, dignity, countMove % settingvalue.playerCount, cardLeft);
+        int move;
+        move = countMove % settingvalue.playerCount;
+        removeCardFromPlayer(playersCard, suit, dignity, move, cardLeft);
+        FuncWithCard func = new FuncWithCard(suit, dignity, cardOnTable, cardLeft);
+
         JLabel cards = new JLabel();
         cards.setIcon(new ImageIcon(func.setIconForCard(suit, dignity)));
         int dig = Integer.parseInt(dignity);
@@ -74,20 +77,22 @@ public class ActionCard implements ActionListener {
             cardOnTable[3][dig - 2][0] = suit;
             cardOnTable[3][dig - 2][1] = dignity;
         }
-        boolean flag = findWinner(cardLeft, countMove % settingvalue.playerCount);
-        JButton skipMove = new JButton("Пропустить ход");
+        boolean flag = findWinner(cardLeft, move);
+        JButton skipMove = new JButton();
         countMove += 1;
+        int playersMove;
+        playersMove = countMove % settingvalue.playerCount;
         deckPanel.removeAll();
-        namePanel.updateUI();
         namePanel.removeAll();
+        namePanel.updateUI();
         gamingTable.add(cards);
-        for (int i = 0; i < cardLeft[countMove % settingvalue.playerCount]; ++i) {
+        for (int i = 0; i < cardLeft[playersMove]; ++i) {
             JButton card = new JButton();
-            card.addActionListener(new ActionCard(playersCard[countMove % settingvalue.playerCount][i][0], playersCard[countMove % settingvalue.playerCount][i][1], gamingTable, cardOnTable, playersCard, settingvalue, deckPanel, countMove, cardLeft, namePanel, nicknames, backToGameFromMain, backToHomeFromGame, cl, homeContainer, endGame));
-            card.setEnabled(func.isPossiblePutCard(cardOnTable, playersCard[countMove % settingvalue.playerCount][i][0], playersCard[countMove % settingvalue.playerCount][i][1]));
-            card.setIcon(new ImageIcon(func.setIconForCard(playersCard[countMove % settingvalue.playerCount][i][0], playersCard[countMove % settingvalue.playerCount][i][1])));
+            card.addActionListener(new ActionCard(playersCard[playersMove][i][0], playersCard[playersMove][i][1], gamingTable, cardOnTable, playersCard, settingvalue, deckPanel, countMove, cardLeft, namePanel, nicknames, backToGameFromMain, backToHomeFromGame, cl, homeContainer, endGame));
+            card.setEnabled(func.isPossiblePutCard(cardOnTable, playersCard[playersMove][i][0], playersCard[playersMove][i][1]));
+            card.setIcon(new ImageIcon(func.setIconForCard(playersCard[playersMove][i][0], playersCard[playersMove][i][1])));
             card.setBounds(0, 0, 50, 50);
-            if (func.isPossiblePutCard(cardOnTable,playersCard[countMove % settingvalue.playerCount][i][0], playersCard[countMove % settingvalue.playerCount][i][1])) {
+            if (func.isPossiblePutCard(cardOnTable,playersCard[playersMove][i][0], playersCard[playersMove][i][1])) {
                 cardEnabled += 1;
             }
             if (flag) {
@@ -104,10 +109,11 @@ public class ActionCard implements ActionListener {
         }
         if (cardEnabled == 0) {
             skipMove.addActionListener(new ActionSkipMove(gamingTable, cardOnTable, playersCard, settingvalue, deckPanel, countMove, cardLeft, suit, dignity, namePanel, nicknames, backToGameFromMain, backToHomeFromGame, cl , homeContainer, endGame));
+            skipMove.setIcon(new ImageIcon("src/main/resources/data/skip.png"));
             deckPanel.add(skipMove);
         }
         if (!flag) {
-            Component name = new JLabel("Игрок " + nicknames.get(countMove % settingvalue.playerCount) + " делает ход.");
+            Component name = new JLabel("Игрок " + nicknames.get(playersMove) + " делает ход.");
             name.setFont(new Font("Times New Roman", Font.BOLD, 20));
             namePanel.add(name);
             gamingTable.updateUI();

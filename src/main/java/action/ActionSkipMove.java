@@ -49,27 +49,30 @@ public class ActionSkipMove implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        FuncWithCard func = new FuncWithCard(suit, dignity, cardOnTable, countMove % settingvalue.playerCount,cardLeft);
+        FuncWithCard func = new FuncWithCard(suit, dignity, cardOnTable, cardLeft);
         countMove += 1;
+        int player = countMove % settingvalue.playerCount;
         int cardEnabled = 0;
         deckPanel.removeAll();
         namePanel.removeAll();
-        for (int i = 0; i < cardLeft[countMove % settingvalue.playerCount]; ++i) {
+        namePanel.updateUI();
+        for (int i = 0; i < cardLeft[player]; ++i) {
             JButton card = new JButton();
-            card.addActionListener(new ActionCard(playersCard[countMove % settingvalue.playerCount][i][0], playersCard[countMove % settingvalue.playerCount][i][1], gamingTable, cardOnTable, playersCard, settingvalue, deckPanel, countMove, cardLeft, namePanel, nicknames, backToGameFromMain, backToHomeFromGame, cl, homeContainer, endGame));
-            card.setEnabled(func.isPossiblePutCard(cardOnTable, playersCard[countMove % settingvalue.playerCount][i][0], playersCard[countMove % settingvalue.playerCount][i][1]));
-            card.setIcon(new ImageIcon(func.setIconForCard(playersCard[countMove % settingvalue.playerCount][i][0], playersCard[countMove % settingvalue.playerCount][i][1])));
-            if (func.isPossiblePutCard(cardOnTable,playersCard[countMove % settingvalue.playerCount][i][0], playersCard[countMove % settingvalue.playerCount][i][1])) {
+            card.addActionListener(new ActionCard(playersCard[player][i][0], playersCard[player][i][1], gamingTable, cardOnTable, playersCard, settingvalue, deckPanel, countMove, cardLeft, namePanel, nicknames, backToGameFromMain, backToHomeFromGame, cl, homeContainer, endGame));
+            card.setEnabled(func.isPossiblePutCard(cardOnTable, playersCard[player][i][0], playersCard[player][i][1]));
+            card.setIcon(new ImageIcon(func.setIconForCard(playersCard[player][i][0], playersCard[player][i][1])));
+            if (func.isPossiblePutCard(cardOnTable,playersCard[player][i][0], playersCard[player][i][1])) {
                 cardEnabled += 1;
             }
             deckPanel.add(card);
         }
         if (cardEnabled == 0) {
-            JButton skipMove = new JButton("Пропустить ход");
+            JButton skipMove = new JButton();
+            skipMove.setIcon(new ImageIcon("src/main/resources/data/skip.png"));
             skipMove.addActionListener(new ActionSkipMove(gamingTable, cardOnTable, playersCard, settingvalue, deckPanel, countMove, cardLeft, suit, dignity, namePanel, nicknames, backToGameFromMain, backToHomeFromGame, cl, homeContainer, endGame));
             deckPanel.add(skipMove);
         }
-        Component name = new JLabel("Игрок " + nicknames.get(countMove % settingvalue.playerCount) + " делает ход.");
+        Component name = new JLabel("Игрок " + nicknames.get(player) + " делает ход.");
         name.setFont(new Font("Times New Roman", Font.BOLD, 20));
         namePanel.add(name);
         deckPanel.updateUI();

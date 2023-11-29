@@ -139,7 +139,6 @@ public class MyConnect {
                 from leaderboard
                 WHERE name = ?
                 """;
-
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {

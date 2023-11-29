@@ -51,12 +51,32 @@ public class Actionstartgame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         ArrayList<String> nicknames = new ArrayList<>();
-        nicknames.add(nickname1.getText());
-        nicknames.add(nickname2.getText());
-        nicknames.add(nickname3.getText());
-        nicknames.add(nickname4.getText());
-        nicknames.add(nickname5.getText());
-        nicknames.add(nickname6.getText());
+        if (settingvalue.direction.equals("По часовой стрелке")) {
+            nicknames.add(nickname1.getText());
+            nicknames.add(nickname2.getText());
+            nicknames.add(nickname3.getText());
+            nicknames.add(nickname4.getText());
+            nicknames.add(nickname5.getText());
+            nicknames.add(nickname6.getText());
+        } else if (settingvalue.direction.equals("Против часовой стрелки")) {
+            if (settingvalue.playerCount == 6) {
+                nicknames.add(nickname6.getText());
+                nicknames.add(nickname5.getText());
+                nicknames.add(nickname4.getText());
+                nicknames.add(nickname3.getText());
+                nicknames.add(nickname2.getText());
+                nicknames.add(nickname1.getText());
+            } else if (settingvalue.playerCount == 4) {
+                nicknames.add(nickname4.getText());
+                nicknames.add(nickname3.getText());
+                nicknames.add(nickname2.getText());
+                nicknames.add(nickname1.getText());
+            } else if (settingvalue.playerCount == 3) {
+                nicknames.add(nickname3.getText());
+                nicknames.add(nickname2.getText());
+                nicknames.add(nickname1.getText());
+            }
+        }
 
         boolean isAllNameCorrect = true;
         Pattern nicknameRegex = Pattern.compile("[a-zA-Z][a-zA-Z0-9]*");
@@ -78,7 +98,7 @@ public class Actionstartgame implements ActionListener {
             gamingTable.removeAll();
             deckPanel.removeAll();
             namePanel.removeAll();
-            gamingTable.setIcon(new ImageIcon("data/table2.jpeg"));
+            gamingTable.setIcon(new ImageIcon("src/main/resources/data/table2.jpeg"));
 
             String[][] currentdeck = new String[0][];
             String[][][] playersCard = new String[0][][];
@@ -107,18 +127,18 @@ public class Actionstartgame implements ActionListener {
                 }
                 ++index;
             }
-            /*System.out.println();
             for (int i = 0; i < settingvalue.playerCount; ++i) {
                 System.out.print("Player " + (i + 1) + ": ");
                 for (int j = 0; j < settingvalue.cardCount / settingvalue.playerCount; ++j) {
                     System.out.print("{" + playersCard[i][j][0] + ", " + playersCard[i][j][1] + "} ");
                 }
                 System.out.println();
-            }*/
+            }
+
             int countMove = firstMove(playersCard);
             String[][][] cardOnTable = new String[4][13][2];
             for (int i = 0; i < playersCard[countMove].length; ++i) {
-                FuncWithCard func = new FuncWithCard(playersCard[countMove % settingvalue.playerCount][i][0], playersCard[countMove % settingvalue.playerCount][i][1], cardOnTable, countMove % settingvalue.playerCount, cardLeft);
+                FuncWithCard func = new FuncWithCard(playersCard[countMove % settingvalue.playerCount][i][0], playersCard[countMove % settingvalue.playerCount][i][1], cardOnTable, cardLeft);
                 JButton card = new JButton();
                 card.setIcon(new ImageIcon(func.setIconForCard(playersCard[countMove % settingvalue.playerCount][i][0], playersCard[countMove % settingvalue.playerCount][i][1])));
                 if (!(playersCard[countMove][i][0].equals("B") && playersCard[countMove][i][1].equals("9"))) {

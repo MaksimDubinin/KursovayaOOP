@@ -36,7 +36,7 @@ public class Actionsettings implements ActionListener {
             if (dir1.isSelected()) {
                 settingvalue.setDirection("По часовой стрелке");
             } else if (dir2.isSelected()) {
-                settingvalue.setDirection("Против часовой стрелке");
+                settingvalue.setDirection("Против часовой стрелки");
             }
         } else {
             JFrame winderror = new JFrame("Ошибка");

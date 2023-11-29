@@ -43,12 +43,13 @@ public class ActionConfirmName implements ActionListener {
         names.removeAll();
 
         JButton backToMainFromName = new JButton();
-        backToMainFromName.setIcon(new ImageIcon("data/back.png"));
+        backToMainFromName.setIcon(new ImageIcon("src/main/resources/data/back.png"));
         backToMainFromName.setBounds(0, 0, 140, 50);
         names.add(backToMainFromName);
         backToMainFromName.addActionListener(event -> cl.show(homeContainer, "HOME"));
+
         JButton confirmName = new JButton();
-        confirmName.setIcon(new ImageIcon("data/accept.png"));
+        confirmName.setIcon(new ImageIcon("src/main/resources/data/accept.png"));
 
         confirmName.setBounds(335, 600, 135, 50);
         names.add(confirmName);
@@ -85,7 +86,6 @@ public class ActionConfirmName implements ActionListener {
             names.add(nickname1);
             names.add(nickname2);
             names.add(nickname3);
-
 
         } else if (settingvalue.playerCount == 4) {
 
@@ -124,7 +124,6 @@ public class ActionConfirmName implements ActionListener {
             names.add(nickname4);
             names.add(nickname5);
             names.add(nickname6);
-
         }
         confirmName.addActionListener(new Actionstartgame(playingcards, settingvalue, cl, homeContainer, deckPanel, gamingTable, backToGameFromMain, backToHomeFromGame,namePanel, nickname1, nickname2, nickname3, nickname4, nickname5, nickname6, endGame));
     }

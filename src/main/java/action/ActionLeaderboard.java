@@ -45,7 +45,6 @@ public class ActionLeaderboard implements ActionListener {
 
         String[][] sortedPlayer = new String[players.length][3];
         int numberPlayer = players.length - 1;
-        System.out.println(numberPlayer);
         for (Integer element : sortedWins) {
             for (int j = 0; j < players.length; ++j) {
                 if (element == Integer.parseInt(players[j][1])) {

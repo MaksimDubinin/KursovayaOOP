@@ -26,14 +26,14 @@ public class Window extends JFrame {
 
         JButton setting = new JButton();
         setting.setBounds(255, 400, 140, 50);
-        setting.setIcon(new ImageIcon("data/set.png"));
+        setting.setIcon(new ImageIcon("src/main/resources/data/set.png"));
         mainPanel.add(setting);
         JButton play =  new JButton();
         play.setBounds(405, 400, 140, 50);
-        play.setIcon(new ImageIcon("data/start.png"));
+        play.setIcon(new ImageIcon("src/main/resources/data/start.png"));
         mainPanel.add(play);
 
-        setIconImage(new ImageIcon("data/logo2.png").getImage());
+        setIconImage(new ImageIcon("src/main/resources/data/logo2.png").getImage());
 
         JPanel settingsPanel = new JPanel();
         settingsPanel.setLayout(null);
@@ -59,7 +59,7 @@ public class Window extends JFrame {
         direction.setBounds((int) (width / 2) - 700, (int) (height / 2) - 400, 200, 200);
         settingsPanel.add(direction);
         JRadioButton dir1 = new JRadioButton("По часовой стрелке");
-        JRadioButton dir2 = new JRadioButton("Против часовой стрелке");
+        JRadioButton dir2 = new JRadioButton("Против часовой стрелки");
         ButtonGroup gr = new ButtonGroup();
         gr.add(dir1);
         gr.add(dir2);
@@ -69,22 +69,22 @@ public class Window extends JFrame {
         settingsPanel.add(dir2);
 
         JButton applysettings = new JButton();
-        applysettings.setIcon(new ImageIcon("data/accept.png"));
+        applysettings.setIcon(new ImageIcon("src/main/resources/data/accept.png"));
         applysettings.setBounds(333, 250, 135, 50);
         settingsPanel.add(applysettings);
         JButton backToHomeFromSettings = new JButton();
-        backToHomeFromSettings.setIcon(new ImageIcon("data/back.png"));
+        backToHomeFromSettings.setIcon(new ImageIcon("src/main/resources/data/back.png"));
         backToHomeFromSettings.setBounds(665, 0, 137, 50);
         settingsPanel.add(backToHomeFromSettings);
 
 
         JButton endGame = new JButton();
-        endGame.setIcon(new ImageIcon("data/end.png"));
+        endGame.setIcon(new ImageIcon("src/main/resources/data/end.png"));
         endGame.addActionListener(e -> cl.show(homeContainer, "HOME"));
         endGame.setVisible(false);
         endGame.setBounds(340, 20, 137, 50);
         JButton backToHomeFromGame = new JButton();
-        backToHomeFromGame.setIcon(new ImageIcon("data/back.png"));
+        backToHomeFromGame.setIcon(new ImageIcon("src/main/resources/data/back.png"));
         backToHomeFromGame.setBounds(0, 0, 137, 50);
         JPanel game = new JPanel();
         game.setLayout(null);
@@ -101,7 +101,7 @@ public class Window extends JFrame {
         leaderboard.setBackground(new Color(182, 179, 179));
 
         JButton backToHomeFromLeader = new JButton();
-        backToHomeFromLeader.setIcon(new ImageIcon("data/back.png"));
+        backToHomeFromLeader.setIcon(new ImageIcon("src/main/resources/data/back.png"));
         backToHomeFromLeader.setBounds(665, 0, 137, 50);
         leaderboard.add(backToHomeFromLeader);
         backToHomeFromLeader.addActionListener(e -> cl.show(homeContainer, "HOME"));
@@ -114,21 +114,35 @@ public class Window extends JFrame {
 
         JPanel rules = new JPanel();
         rules.setLayout(null);
+
         JButton fromHomeToRule = new JButton();
-        fromHomeToRule.setIcon(new ImageIcon("data/rule.png"));
+        fromHomeToRule.setIcon(new ImageIcon("src/main/resources/data/rule.png"));
         fromHomeToRule.addActionListener(e -> cl.show(homeContainer, "RULES"));
         fromHomeToRule.setBounds(405, 470, 137, 50);
         mainPanel.add(fromHomeToRule);
         rules.setBackground(new Color(182, 179, 179));
+        Component listRules = new JLabel(
+                "<html>Цель игры.<br>" +
+                "1) Избавиться от карт первым.<br>" +
+                "Правила игры.<br>" +
+                "1)\tВсе карты колоды поровну раздаются между игроками.<br>" +
+                "2)\tПервый ход делает игрок, у которого на руках 9 бубен.<br>" +
+                "3)\tВторой игрок может положить 10 или 8 бубен или любую другую 9.<br>" +
+                "4)\tЕсли игрок не может положить карту на стол, то он пропускает ход.<br>" +
+                "</html>"
+        );
+        rules.add(listRules);
+        listRules.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        listRules.setBounds(100, 0, 700, 500);
 
         JButton backToHomeFromRule = new JButton();
-        backToHomeFromRule.setIcon(new ImageIcon("data/back.png"));
+        backToHomeFromRule.setIcon(new ImageIcon("src/main/resources/data/back.png"));
         backToHomeFromRule.setBounds(665, 0, 137, 50);
         backToHomeFromRule.addActionListener(e -> cl.show(homeContainer, "HOME"));
         rules.add(backToHomeFromRule);
 
         JButton fromHomeToLeader = new JButton();
-        fromHomeToLeader.setIcon(new ImageIcon("data/table.png"));
+        fromHomeToLeader.setIcon(new ImageIcon("src/main/resources/data/table.png"));
         fromHomeToLeader.setBounds(255, 470, 137, 50);
         mainPanel.add(fromHomeToLeader);
         fromHomeToLeader.addActionListener(new ActionLeaderboard(homeContainer, cl, leaders));
@@ -158,7 +172,7 @@ public class Window extends JFrame {
         game.add(namePanel);
 
         JButton backToGameFromMain = new JButton();
-        backToGameFromMain.setIcon(new ImageIcon("data/backToGame.png"));
+        backToGameFromMain.setIcon(new ImageIcon("src/main/resources/data/backToGame.png"));
         backToGameFromMain.addActionListener(event -> cl.show(homeContainer, "GAME"));
         backToGameFromMain.setBounds(663, 0, 137, 50);
         backToGameFromMain.setVisible(false);
@@ -167,7 +181,7 @@ public class Window extends JFrame {
         JLabel logo = new JLabel();
         logo.setLayout(null);
         logo.setBounds(250, 50, 300, 250);
-        logo.setIcon(new ImageIcon("data/logo2.png"));
+        logo.setIcon(new ImageIcon("src/main/resources/data/logo2.png"));
         mainPanel.add(logo);
 
         backToHomeFromSettings.addActionListener(e -> cl.show(homeContainer, "HOME"));
