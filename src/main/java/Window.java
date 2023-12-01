@@ -77,7 +77,6 @@ public class Window extends JFrame {
         backToHomeFromSettings.setBounds(665, 0, 137, 50);
         settingsPanel.add(backToHomeFromSettings);
 
-
         JButton endGame = new JButton();
         endGame.setIcon(new ImageIcon("src/main/resources/data/end.png"));
         endGame.addActionListener(e -> cl.show(homeContainer, "HOME"));
@@ -107,7 +106,7 @@ public class Window extends JFrame {
         backToHomeFromLeader.addActionListener(e -> cl.show(homeContainer, "HOME"));
 
         JPanel leaders = new JPanel();
-        leaders.setBounds(200, 200, 400, 400);
+        leaders.setBounds(200, 200, 400, 371);
         leaders.setLayout(null);
         leaders.setBackground(new Color(182, 179, 179));
         leaderboard.add(leaders);

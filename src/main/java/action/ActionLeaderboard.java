@@ -58,18 +58,19 @@ public class ActionLeaderboard implements ActionListener {
 
         JTable table = new JTable(sortedPlayer, columnName);
         JScrollPane scroll = new JScrollPane(table);
-
-        table.setPreferredScrollableViewportSize(new Dimension(50, 30));
         scroll.setVisible(true);
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        table.setPreferredScrollableViewportSize(new Dimension(50, 30));
+        scroll.setBounds(0, 50, 400, 300);
+        scroll.setVisible(true);
+
         table.setFont(new Font("Times New Roman", Font.BOLD, 15));
         table.setShowGrid(true);
         table.setShowHorizontalLines(true);
         table.setShowVerticalLines(true);
         table.setBounds(65,100, 300, 300);
-        table.setBackground(new Color(193, 193, 193));
+        table.setBackground(new Color(218, 218, 208));
         table.setRowHeight(30);
-
-        leaders.add(table);
         leaders.add(scroll);
     }
 }
