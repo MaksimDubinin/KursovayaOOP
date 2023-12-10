@@ -154,7 +154,6 @@ public class MyConnect {
             ResultSet rs = statement.executeQuery();
             rs.next();
             countWinFromDb = rs.getInt(1);
-            System.out.println(countWinFromDb);
             return countWinFromDb;
         } catch (SQLException e) {
             System.out.println("Connection failed");
