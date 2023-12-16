@@ -1,0 +1,177 @@
+@startuml
+
+top to bottom direction
+skinparam linetype ortho
+
+class ActionCard {
+  + ActionCard(String, String, JLabel, String[][][], String[][][], Settingvalue, JPanel, int, int[], JPanel, ArrayList<String>, JButton, JButton, CardLayout, JPanel, JButton):
+  - cardLeft: int[]
+  - backToHomeFromGame: JButton
+  ~ height: double
+  - backToGameFromMain: JButton
+  - countMove: int
+  - cardOnTable: String[][][]
+  - nicknames: ArrayList<String>
+  - dignity: String
+  ~ width: double
+  - settingvalue: Settingvalue
+  - homeContainer: JPanel
+  - suit: String
+  - gamingTable: JLabel
+  - endGame: JButton
+  - deckPanel: JPanel
+  ~ screenSize: Dimension
+  - playersCard: String[][][]
+  - namePanel: JPanel
+  - cl: CardLayout
+  + actionPerformed(ActionEvent): void
+  + removeCardFromPlayer(String[][][], String, String, int, int[]): void
+  + findWinner(int[], int): boolean
+}
+class ActionConfirmName {
+  + ActionConfirmName(JPanel, CardLayout, Settingvalue, JPanel, Playingcards, JPanel, JLabel, JButton, JPanel, JButton, JButton):
+  - cl: CardLayout
+  - settingvalue: Settingvalue
+  - homeContainer: JPanel
+  - names: JPanel
+  - playingcards: Playingcards
+  - gamingTable: JLabel
+  - namePanel: JPanel
+  - endGame: JButton
+  - backToGameFromMain: JButton
+  - deckPanel: JPanel
+  - backToHomeFromGame: JButton
+  + actionPerformed(ActionEvent): void
+}
+class ActionLeaderboard {
+  + ActionLeaderboard(JPanel, CardLayout, JPanel):
+  - homeContainer: JPanel
+  - leaders: JPanel
+  - cl: CardLayout
+  + actionPerformed(ActionEvent): void
+}
+class ActionSkipMove {
+  + ActionSkipMove(JLabel, String[][][], String[][][], Settingvalue, JPanel, int, int[], String, String, JPanel, ArrayList<String>, JButton, JButton, CardLayout, JPanel, JButton):
+  - namePanel: JPanel
+  - countMove: int
+  - suit: String
+  - dignity: String
+  - cl: CardLayout
+  - endGame: JButton
+  - nicknames: ArrayList<String>
+  - settingvalue: Settingvalue
+  - cardLeft: int[]
+  - cardOnTable: String[][][]
+  - homeContainer: JPanel
+  - playersCard: String[][][]
+  - backToHomeFromGame: JButton
+  - gamingTable: JLabel
+  - deckPanel: JPanel
+  - backToGameFromMain: JButton
+  + actionPerformed(ActionEvent): void
+}
+class Actionsettings {
+  + Actionsettings(Settingvalue, JTextField, JSpinner, JRadioButton, JRadioButton):
+  - deck: JSpinner
+  - countPlayer: JTextField
+  ~ height: double
+  - dir1: JRadioButton
+  - dir2: JRadioButton
+  - settingvalue: Settingvalue
+  ~ width: double
+  ~ screenSize: Dimension
+  + actionPerformed(ActionEvent): void
+}
+class Actionstartgame {
+  + Actionstartgame(Playingcards, Settingvalue, CardLayout, JPanel, JPanel, JLabel, JButton, JButton, JPanel, JTextField, JTextField, JTextField, JTextField, JTextField, JTextField, JButton):
+  - playingcards: Playingcards
+  - nickname6: JTextField
+  - settingvalue: Settingvalue
+  - nickname3: JTextField
+  - nickname2: JTextField
+  - backToGameFromMain: JButton
+  - backToHomeFromGame: JButton
+  - cl: CardLayout
+  - nickname5: JTextField
+  - nickname1: JTextField
+  - homeContainer: JPanel
+  - gamingTable: JLabel
+  - deckPanel: JPanel
+  - endGame: JButton
+  - nickname4: JTextField
+  - namePanel: JPanel
+  + actionPerformed(ActionEvent): void
+  + firstMove(String[][][]): int
+  + removeCard(String[][], int, int): void
+}
+class FuncWithCard {
+  + FuncWithCard(String, String, String[][][], int[]):
+  - cardLeft: int[]
+  - suit: String
+  - dignity: String
+  - cardOnTable: String[][][]
+  + setIconForCard(String, String): String
+  + isPossiblePutCard(String[][][], String, String): boolean
+}
+class Main {
+  + Main():
+  + main(String[]): void
+}
+class MyConnect {
+  + MyConnect():
+  - user: String
+  - url: String
+  - password: String
+  + getCountRow(): int
+  + getCountWin(String): int
+  + allSelect(): String[][]
+  + insertInDb(String): boolean
+  + setCountWin(String): boolean
+}
+class Playingcards {
+  + Playingcards():
+  - deck36: String[][]
+  - deck52: String[][]
+  + getDeck36(): String[][]
+  + getDeck52(): String[][]
+}
+class Settingvalue {
+  + Settingvalue():
+  + direction: String
+  + cardCount: int
+  + playerCount: int
+  + setPlayerCount(int): void
+  + setCardCount(int): void
+  + setDirection(String): void
+}
+class Window {
+  + Window():
+  ~ screenSize: Dimension
+  ~ width: double
+  ~ height: double
+}
+
+ActionCard         -->  ActionSkipMove
+ActionCard         -->  FuncWithCard
+ActionCard         -->  MyConnect
+ActionCard         *-->  Settingvalue
+ActionConfirmName  -->  Actionstartgame
+ActionConfirmName -->  Playingcards
+ActionConfirmName *--> Settingvalue
+ActionLeaderboard  -->  MyConnect
+ActionSkipMove     -->  ActionCard
+ActionSkipMove     -->  FuncWithCard
+ActionSkipMove     *-->  Settingvalue
+Actionsettings    *--> Settingvalue
+Actionstartgame    -->  ActionCard
+Actionstartgame    -->  FuncWithCard
+Actionstartgame    -->  MyConnect
+Actionstartgame   *-->  Playingcards
+Actionstartgame    *-->  Settingvalue
+Main               ..>  Window
+Window             ..>  ActionConfirmName
+Window             ..>  ActionLeaderboard
+Window             ..>  Actionsettings
+Window             ..>  Playingcards
+Window             ..>  Settingvalue
+@enduml
